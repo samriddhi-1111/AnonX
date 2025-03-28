@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Ease - Healthcare Services</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Inter Tight", sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #333;
+            line-height: 1.6;
+            background-image: url('images/medical-bg.png');
+            background-size: 850px;
+            background-repeat: no-repeat;
+            background-position: right;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 1 auto;
+            padding: 0 40px;
+        }
+        
+        .hero {
+            margin-top: 100px;
+            padding: 4rem 5%;
+            text-align: left;
+            
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: black;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+            border-bottom: 1.5px solid rgb(195, 192, 192);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: black;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 0 2rem ;
+        }
+
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            color: rgb(84, 81, 81);
+            padding: 10px 100px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+        .logo span {
+            color: #3498db;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: rgb(36, 35, 35);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #008CFF;
+            text-decoration: underline;
+        }
+
+        /* Left-aligned Content */
+        .content-wrapper {
+            max-width: 800px;
+            margin-right: auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Main Content */
+        .page-title {
+            font-size: 32px;
+            margin: 0 0 30px 0;
+            color: #2c3e50;
+            text-align: left;
+            padding-left: 10px;
+        }
+
+        /* Doctors List */
+        .doctors-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+            max-width: 800px;
+        }
+
+        .doctor-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .profile-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #3498db;
+            margin-right: 20px;
+        }
+
+        .doctor-info {
+            flex: 1;
+        }
+
+        .doctor-name {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .doctor-specialty {
+            color: #3498db;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .doctor-rating {
+            color: #f39c12;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .book-btn {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid #3498db;
+            margin-top: auto;
+            align-self: flex-start;
+        }
+
+        .book-btn:hover {
+            background-color: white;
+            color: #3498db;
+        }
+
+        /* Booking Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .modal-title {
+            font-size: 26px;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #444;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus, 
+        .form-group textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .submit-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            header {
+                padding: 10px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .doctors-list {
+                grid-template-columns: 1fr;
+                max-width: 100%;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .profile-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-img {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
+          /* Medicine Section Styles */
+          .medicine-section {
+            margin-top: 50px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            text-align: left;
+        }
+        
+        .medicine-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .medicine-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .medicine-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .medicine-img {
+            width: 100%;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+        
+        .medicine-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .medicine-category {
+            color: black;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .external-link {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .external-link:hover {
+            background-color: #2980b9;
+        }
+        
+        @media (max-width: 768px) {
+            .medicine-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .medicine-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">City<span> Ease</span></div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">About Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+       <!-- Hero Section -->
+       <section class="hero">
+        <h1>Health Care Services</h1>
+        <p>Get reliable Healthcare services easily! From doctors consultations to wide range of medicines.
+        The main aim is to improve the quality of care and patient outcomes and reducing the cost of care.
+        Check out for quick, hassle-free solutions.</p>
+    </section>
+
+    <main class="container">
+        <div class="content-wrapper">
+            <h1 class="page-title">Doctor Services</h1>
+            
+            <div class="doctors-list">
+                <div class="doctor-card">
+                    <div class="profile-container">
+                        <img src="images/cardiologist.jpeg" alt="Dr. Balbir Singh" class="profile-img">
+                        <div class="doctor-info">
+                            <h3 class="doctor-name">Dr. Balbir Singh</h3>
+                            <div class="doctor-specialty">Cardiologist</div>
+                            <div class="doctor-rating">★★★★★ (329 reviews)</div>
+                        </div>
+                    </div>
+                    <p>34+ years experience • 24/7 emergency service</p>
+                    <a href="#" class="book-btn" data-name="Dr. Balbir Singh">Book Appointment</a>
+                </div>
+                
+                <div class="doctor-card">
+                    <div class="profile-container">
+                        <img src="images/pediatrician.jpeg" alt="Dr.Vedarth Dash" class="profile-img">
+                        <div class="doctor-info">
+                            <h3 class="doctor-name">Dr.Vedarth Dash</h3>
+                            <div class="doctor-specialty">Pediatrician</div>
+                            <div class="doctor-rating">★★★★☆ (218 reviews)</div>
+                        </div>
+                    </div>
+                    <p>11 years experience • Free consultations</p>
+                    <a href="#" class="book-btn" data-name="Dr.Vedarth Dash">Book Appointment</a>
+                </div>
+                
+                <div class="doctor-card">
+                    <div class="profile-container">
+                        <img src="images/neurologist.jpeg" alt="Dr. Deepak Gupta" class="profile-img">
+                        <div class="doctor-info">
+                            <h3 class="doctor-name">Dr. Deepak Gupta</h3>
+                            <div class="doctor-specialty">Neurologist</div>
+                            <div class="doctor-rating">★★★★★ (442 reviews)</div>
+                        </div>
+                    </div>
+                    <p>17+ years experience • Specialized treatments</p>
+                    <a href="#" class="book-btn" data-name="Dr. Deepak Gupta">Book Appointment</a>
+                </div>
+                
+                <div class="doctor-card">
+                    <div class="profile-container">
+                        <img src="images/dermatologist.jpeg" alt="Dr. Shefali Trasi" class="profile-img">
+                        <div class="doctor-info">
+                            <h3 class="doctor-name">Dr. Shefali Trasi</h3>
+                            <div class="doctor-specialty">Dermatologist</div>
+                            <div class="doctor-rating">★★★★★ (367 reviews)</div>
+                        </div>
+                    </div>
+                    <p>Same-day appointments • Skin care specialist</p>
+                    <a href="#" class="book-btn" data-name="Dr. Shefali Trasi">Book Appointment</a>
+                </div>
+            </div>
+        </div>
+        <div class="content-wrapper medicine-section">
+            <h2 class="section-title">Shop Medicines</h2>
+            
+            <div class="medicine-cards">
+                <!-- Medicine Card 1 -->
+                <div class="medicine-card" onclick="redirectToPharmacy('https://www.ayurplan.com/')">
+                    <img src="images/ayurved.jpeg" alt="Ayurvedic Medicines" class="medicine-img">
+                    <h3 class="medicine-name">Ayurvedic Medicines</h3>
+                    <div class="medicine-category">Ancient Remedies, Modern Trust</div>
+                    <a href="https://www.ayurplan.com/" class="external-link" target="_blank">Visit</a>
+                </div>
+                
+                <!-- Medicine Card 2 -->
+                <div class="medicine-card" onclick="redirectToPharmacy('https://janakalyanhomoeopathy.com/')">
+                    <img src="images/homeopathy.jpeg" alt="Homeopathic Medicines" class="medicine-img">
+                    <h3 class="medicine-name">Homeopathic Medicines</h3>
+                    <div class="medicine-category">Nature's Cure in a Drop</div>
+                    <a href="https://janakalyanhomoeopathy.com/" class="external-link" target="_blank">Visit</a>
+                </div>
+                
+                <!-- Medicine Card 3 -->
+                <div class="medicine-card" onclick="redirectToPharmacy('https://www.wellnessforever.com/')">
+                    <img src="images/allopathy.jpeg" alt="Allopathic Medicines" class="medicine-img">
+                    <h3 class="medicine-name">Allopathic Medicines</h3>
+                    <div class="medicine-category">Promoting Wellness with Precision</div>
+                    <a href="https://www.wellnessforever.com/" class="external-link" target="_blank">Visit</a>
+                </div>
+                
+                <!-- Medicine Card 4 -->
+                <div class="medicine-card" onclick="redirectToPharmacy('https://zeelabpharmacy.com/')">
+                    <img src="images/generic.jpeg" alt="Generic Medicines" class="medicine-img">
+                    <h3 class="medicine-name">Generic Medicines</h3>
+                    <div class="medicine-category">Smart way to save on Healthcare</div>
+                    <a href="https://zeelabpharmacy.com/" class="external-link" target="_blank">Visit</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Doctor Booking Modal -->
+    <div class="modal" id="doctorBookingModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeDoctorModal">&times;</span>
+            <h2 class="modal-title">Book Appointment with <span id="doctorName"></span></h2>
+            <form id="doctorBookingForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patientName">Full Name</label>
+                        <input type="text" id="patientName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientPhone">Phone Number</label>
+                        <input type="tel" id="patientPhone" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="patientEmail">Email</label>
+                        <input type="email" id="patientEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentDate">Appointment Date</label>
+                        <input type="date" id="appointmentDate" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="appointmentTime">Preferred Time</label>
+                    <select id="appointmentTime" required>
+                        <option value="">Select time</option>
+                        <option value="08:00-10:00">Morning (8:00 AM - 10:00 AM)</option>
+                        <option value="10:00-12:00">Late Morning (10:00 AM - 12:00 PM)</option>
+                        <option value="12:00-14:00">Afternoon (12:00 PM - 2:00 PM)</option>
+                        <option value="14:00-16:00">Late Afternoon (2:00 PM - 4:00 PM)</option>
+                        <option value="16:00-18:00">Evening (4:00 PM - 6:00 PM)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="medicalConcern">Medical Concern</label>
+                    <textarea id="medicalConcern" rows="3" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Confirm Appointment</button>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+        // Doctor Booking Functionality
+        const doctorBookingModal = document.getElementById('doctorBookingModal');
+        const closeDoctorModal = document.getElementById('closeDoctorModal');
+        const doctorBookingForm = document.getElementById('doctorBookingForm');
+        const doctorName = document.getElementById('doctorName');
+        const doctorBookButtons = document.querySelectorAll('.doctors-list .book-btn');
+
+        // Open modal when Book button is clicked
+        doctorBookButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const name = button.getAttribute('data-name');
+                doctorName.textContent = name;
+                doctorBookingModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                
+                // Set minimum date to today
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('appointmentDate').min = today;
+            });
+        });
+
+        // Close modal when X is clicked
+        closeDoctorModal.addEventListener('click', () => {
+            doctorBookingModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === doctorBookingModal) {
+                doctorBookingModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Form submission
+        doctorBookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const doctor = doctorName.textContent;
+            const patientName = document.getElementById('patientName').value;
+            const patientPhone = document.getElementById('patientPhone').value;
+            const patientEmail = document.getElementById('patientEmail').value;
+            const appointmentDate = document.getElementById('appointmentDate').value;
+            const appointmentTime = document.getElementById('appointmentTime').value;
+            const medicalConcern = document.getElementById('medicalConcern').value;
+            
+            // In a real app, you would send this data to a server
+            console.log('Doctor Appointment:', {
+                doctor,
+                patientName,
+                patientPhone,
+                patientEmail,
+                appointmentDate,
+                appointmentTime,
+                medicalConcern
+            });
+            
+            // Show confirmation and close modal
+            alert(`Appointment confirmed with ${doctor} for ${appointmentDate} at ${appointmentTime}\n\nMedical Concern: ${medicalConcern}`);
+            doctorBookingModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            doctorBookingForm.reset();
+        });
+          // Medicine Section Functionality
+          function redirectToPharmacy(url) {
+            // You can add tracking or confirmation here if needed
+            window.open(url, '_blank');
+        }
+        
+        // Optional: Add confirmation before redirecting
+        function confirmRedirect(url) {
+            if(confirm("You will be redirected to an external pharmacy website. Continue?")) {
+                window.open(url, '_blank');
+            }
+        }
+    </script>
+</body>
+</html>
